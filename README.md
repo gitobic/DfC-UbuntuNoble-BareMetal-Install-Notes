@@ -2,13 +2,14 @@
 
 Just some notes on building and configuring a bare-metal install for DeepRacer.  As always - your mileage may vary
 
-Starting Point:
+### Starting Point:
 
 *   System Name: leota
 *   OS: Ubuntu 24.04 noble
-*   Kernel: x86\_64 Linux 6.8.0-31-generic
 *   Disk: 
-*   CPU: 11th Gen Intel Core i7-11700 @ 16x 4.8GHz \[63.0°C\]
+    *   Model: CT1000T500SSD8 
+    *   Size: 1000GB
+*   CPU: 11th Gen Intel Core i7-11700 @ 16x 4.8GHz
 *   GPU: Tesla M40 24GB
 *   RAM: 31860MiB
 
@@ -135,3 +136,35 @@ source ./profile
 ```
 
 Look for `/home/<user>/.local/bin` in your path (where \<user> is the login user of your server.  Alternatively, if you want to create a possible problem in the future, but fix the issue _right now_, then edit the with `sudo vim /etc/environment` and add  :`/home/<user>/.local/bin` at the end (keep the closed quotes!
+
+### Installing the NVIDIA drivers
+
+#### Method #1 - Ubuntu driver tool
+
+[Check out this page](https://ubuntu.com/server/docs/nvidia-drivers-installation)
+
+*   focus on the directions for server drivers
+*   List what drivers are available:
+
+```plaintext
+sudo ubuntu-drivers list --gpgpu
+```
+
+*   Install the drivers for compute / 
+
+```plaintext
+sudo ubuntu-drivers install --gpgpu nvidia:535-server
+```
+
+*   And the NVIDIA tools
+
+```plaintext
+sudo apt install nvidia-utils-535-server
+```
+
+Really recommend that you reboot and check.  run `nvidia-smi` to check that the drivers are installed and seeing your GPU
+
+results:  
+`+---------------------------------------------------------------------------------------+`  
+`| NVIDIA-SMI 535.161.08             **Driver Version: 535.161.08**   CUDA Version: 12.2     |`  
+`+---------------------------------------------------------------------------------------+`
